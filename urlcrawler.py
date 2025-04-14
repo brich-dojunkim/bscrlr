@@ -68,7 +68,7 @@ def scrape_multiple_pages(page_url: str, max_page: int, output_csv: str):
 
 
 if __name__ == "__main__":
-    start_url = "https://brand.naver.com/onnon/category/78a8c0589ce54c10a778e9b1140fadbf?cp=1"  # 예시 URL
+    start_url = "https://brand.naver.com/beautyofjoseon/category/851e876dfa0b426490d314d8228270b1?cp=1"  # 예시 URL
     scrape_multiple_pages(
         page_url=start_url,
         max_page=10,
