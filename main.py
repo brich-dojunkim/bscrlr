@@ -176,7 +176,11 @@ def main():
             reader = csv.reader(f)
             next(reader)  # 헤더 건너뛰기
             for row in reader:
-                product_urls.append(row[0])
+                url = row[0]
+                # brand.naver.com을 smartstore.naver.com으로 변경
+                if 'brand.naver.com' in url:
+                    url = url.replace('brand.naver.com', 'smartstore.naver.com')
+                product_urls.append(url)
     except Exception as e:
         print(f"[ERROR] URL 파일 읽기 실패: {e}")
 

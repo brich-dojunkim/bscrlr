@@ -84,11 +84,26 @@ def crawl_reviews(target_url, max_pages=None, output_csv=None, return_df=False, 
         DataFrame: return_df가 True일 경우 수집된 리뷰 데이터프레임 반환
     """
 
-    if target_url.startswith('/'):
-        target_url = 'https://brand.naver.com' + target_url
+    # URL 도메인 처리 수정
+    # brand.naver.com을 smartstore.naver.com으로 변경
+    if target_url.startswith('https://brand.naver.com') or target_url.startswith('http://brand.naver.com'):
+        target_url = target_url.replace('brand.naver.com', 'smartstore.naver.com')
+    elif target_url.startswith('/'):
+        # 상대 경로인 경우
+        target_url = 'https://smartstore.naver.com' + target_url
+    
+    # URL이 이미 smartstore.naver.com으로 시작하는지 확인
+    if not (target_url.startswith('https://smartstore.naver.com') or target_url.startswith('http://smartstore.naver.com')):
+        # 도메인이 없는 경우 추가
+        if target_url.startswith('/'):
+            target_url = 'https://smartstore.naver.com' + target_url
+        else:
+            target_url = 'https://smartstore.naver.com/' + target_url
+    
+    print(f"[INFO] 처리된 URL: {target_url}")
     
     driver = setup_driver()
-    
+        
     # -----------------------------------------------------------
     # 1. 크롤링에 필요한 사전 작업 (사이트 열기 & 버튼 클릭)
     # -----------------------------------------------------------
